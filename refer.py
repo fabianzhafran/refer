@@ -46,7 +46,7 @@ class REFER:
 		# provide data_root folder which contains refclef, refcoco, refcoco+ and refcocog
 		# also provide dataset name and splitBy information
 		# e.g., dataset = 'refcoco', splitBy = 'unc'
-		print 'loading dataset %s into memory...' % dataset
+		print('loading dataset %s into memory...'.format(dataset))
 		self.ROOT_DIR = osp.abspath(osp.dirname(__file__))
 		self.DATA_DIR = osp.join(data_root, dataset)
 		if dataset in ['refcoco', 'refcoco+', 'refcocog']:
@@ -54,7 +54,7 @@ class REFER:
 		elif dataset == 'refclef':
 			self.IMAGE_DIR = osp.join(data_root, 'images/saiapr_tc-12')
 		else:
-			print 'No refer dataset is called [%s]' % dataset
+			print('No refer dataset is called [%s]'.format(dataset))
 			sys.exit()
 
 		# load refs from data/dataset/refs(dataset).json
@@ -73,7 +73,7 @@ class REFER:
 
 		# create index
 		self.createIndex()
-		print 'DONE (t=%.2fs)' % (time.time()-tic)
+		print('DONE (t=%.2fs)'.format((time.time()-tic)))
 
 	def createIndex(self):
 		# create sets of mapping
@@ -164,7 +164,7 @@ class REFER:
 				elif split == 'train' or split == 'val':
 					refs = [ref for ref in refs if ref['split'] == split]
 				else:
-					print 'No such split [%s]' % split
+					print('No such split [%s]'.format(split))
 					sys.exit()
 		ref_ids = [ref['ref_id'] for ref in refs]
 		return ref_ids
@@ -238,7 +238,7 @@ class REFER:
 		ax.imshow(I)
 		# show refer expression
 		for sid, sent in enumerate(ref['sentences']):
-			print '%s. %s' % (sid+1, sent['sent'])
+			print('%s. %s'.format((sid+1, sent['sent'])))
 		# show segmentations
 		if seg_box == 'seg':
 			ann_id = ref['ann_id']
@@ -339,7 +339,7 @@ if __name__ == '__main__':
 	print len(refer.imgToRefs)
 
 	ref_ids = refer.getRefIds(split='train')
-	print 'There are %s training referred objects.' % len(ref_ids)
+	print('There are %s training referred objects.'.format(len(ref_ids)))
 
 	for ref_id in ref_ids:
 		ref = refer.loadRefs(ref_id)[0]
@@ -347,7 +347,7 @@ if __name__ == '__main__':
 			continue
 
 		pprint(ref)
-		print 'The label is %s.' % refer.Cats[ref['category_id']]
+		print('The label is %s.'.format(refer.Cats[ref['category_id']]))
 		plt.figure()
 		refer.showRef(ref, seg_box='box')
 		plt.show()
