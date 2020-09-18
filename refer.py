@@ -89,7 +89,7 @@ class REFER:
 		# 10) catToRefs: 	{category_id: refs}
 		# 11) sentToRef: 	{sent_id: ref}
 		# 12) sentToTokens: {sent_id: tokens}
-		print 'creating index...'
+		print('creating index...')
 		# fetch info from instances
 		Anns, Imgs, Cats, imgToAnns = {}, {}, {}, {}
 		for ann in self.data['annotations']:
@@ -136,7 +136,7 @@ class REFER:
 		self.catToRefs = catToRefs
 		self.sentToRef = sentToRef
 		self.sentToTokens = sentToTokens
-		print 'index created.'
+		print('index created.')
 
 	def getRefIds(self, image_ids=[], cat_ids=[], ref_ids=[], split=''):
 		image_ids = image_ids if type(image_ids) == list else [image_ids]
@@ -301,7 +301,7 @@ class REFER:
 		# 	mass_x, mass_y = position_x, position_y
 		# # if centroid is not in mask, we find the closest point to it from mask
 		# if m[mass_y, mass_x] != 1:
-		# 	print 'Finding closes mask point ...'
+		# 	print('Finding closes mask point ...')
 		# 	kernel = np.ones((10, 10),np.uint8)
 		# 	me = cv2.erode(m, kernel, iterations = 1)
 		# 	points = zip(np.where(me == 1)[0].tolist(), np.where(me == 1)[1].tolist())  # row, col style
@@ -335,8 +335,8 @@ if __name__ == '__main__':
 	ref_ids = refer.getRefIds()
 	print(len(ref_ids))
 
-	print len(refer.Imgs)
-	print len(refer.imgToRefs)
+	print(len(refer.Imgs))
+	print(len(refer.imgToRefs))
 
 	ref_ids = refer.getRefIds(split='train')
 	print('There are %s training referred objects.'.format(len(ref_ids)))
