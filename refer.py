@@ -27,7 +27,7 @@ showMask   - show mask of the referred object given ref
 import sys
 import os.path as osp
 import json
-import cPickle as pickle
+import _pickle as pickle
 import time
 import itertools
 import skimage.io as io
@@ -62,7 +62,7 @@ class REFER:
 		ref_file = osp.join(self.DATA_DIR, 'refs('+splitBy+').p')
 		self.data = {}
 		self.data['dataset'] = dataset
-		self.data['refs'] = pickle.load(open(ref_file, 'r'))
+		self.data['refs'] = pickle.load(open(ref_file, 'rb'))
 
 		# load annotations from data/dataset/instances.json
 		instances_file = osp.join(self.DATA_DIR, 'instances.json')
