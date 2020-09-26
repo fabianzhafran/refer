@@ -2,9 +2,8 @@
 
 from refer import REFER
 
-dataroot = "/projectnb/statnlp/gik/refer/data"
-
 if __name__ == '__main__':
-    refer = REFER(dataset='refcocog', dataroot splitBy='google')
+    dataroot = "/projectnb/statnlp/gik/refer/data"
+    refer = REFER(dataset='refcocog', data_root=dataroot, splitBy='google')
     ref_ids = refer.getRefIds(split="test")[:]
     print(ref_ids)
