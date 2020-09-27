@@ -63,6 +63,7 @@ class REFER:
 		self.data = {}
 		self.data['dataset'] = dataset
 		self.data['refs'] = pickle.load(open(ref_file, 'rb'))
+		print(self.data['refs'])
 
 		# load annotations from data/dataset/instances.json
 		instances_file = osp.join(self.DATA_DIR, 'instances.json')
