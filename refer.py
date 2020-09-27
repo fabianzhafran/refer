@@ -64,7 +64,7 @@ class REFER:
 		self.data['dataset'] = dataset
 		self.data['refs'] = pickle.load(open(ref_file, 'rb'))
 		print("~~~self.data['refs']")
-		print(self.data['refs'][:7])
+		print(filter(lambda x: True if x['image_id'] == 24882 else False, self.data['refs']))
 
 		# load annotations from data/dataset/instances.json
 		instances_file = osp.join(self.DATA_DIR, 'instances.json')
