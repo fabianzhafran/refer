@@ -67,9 +67,8 @@ class REFER:
 		# for filterRes in filter(lambda x: True if x['image_id'] == 24882 else False, self.data['refs']):
 		# 	print(filterRes)
 		for data in self.data['refs']:
-			if (data['image_id'] == 24882):
-				print(data)
-				
+			print(data)
+			break
  
 		# load annotations from data/dataset/instances.json
 		instances_file = osp.join(self.DATA_DIR, 'instances.json')
