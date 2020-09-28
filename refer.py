@@ -66,8 +66,8 @@ class REFER:
 		print("~~~self.data['refs']")
 		# for filterRes in filter(lambda x: True if x['image_id'] == 24882 else False, self.data['refs']):
 		# 	print(filterRes)
-		print("~~~self.data~~~")
-		print(self.data[:3])
+		# print("~~~self.data~~~")
+		# print(self.data[:3])
 		print()
 		print("self.data['refs']")
 		print()
