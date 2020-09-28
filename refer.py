@@ -67,7 +67,7 @@ class REFER:
 		# for filterRes in filter(lambda x: True if x['image_id'] == 24882 else False, self.data['refs']):
 		# 	print(filterRes)
 		for data in self.data['refs']:
-			if (data['refs'] == 'test'):
+			if (data['split'] == 'test'):
 				print(data)
 				break
  
