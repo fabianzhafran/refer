@@ -71,10 +71,6 @@ class REFER:
 		# print()
 		# print("self.data['refs']")
 		# print()
-		for data in self.data['refs']:
-			if (data['split'] == 'test'):
-				print(data)
-				break
  
 		# load annotations from data/dataset/instances.json
 		instances_file = osp.join(self.DATA_DIR, 'instances.json')
