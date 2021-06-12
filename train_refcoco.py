@@ -31,7 +31,7 @@ def get_refer_dicts():
         # print(refer.getRefBox(ref_id))
         ref['annotations'] = [{
             'bbox': refer.getRefBox(ref_id),
-            'bbox_mode': BoxMode.XYXY_ABS,
+            'bbox_mode': BoxMode.XYWH_ABS,
             'category_id': ref['category_id']
         }]
 
