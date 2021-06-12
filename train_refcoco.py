@@ -30,11 +30,7 @@ def get_refer_dicts():
         # print('The label is %s.'.format(refer.Cats[ref['category_id']]))
         # print('bbox: ')
         # print(refer.getRefBox(ref_id))
-        new_ref['annotations'] = [{
-            'bbox': refer.getRefBox(ref_id),
-            'bbox_mode': BoxMode.XYWH_ABS,
-            'category_id': ref['category_id']
-        }]
+        new_ref['annotations'] = refer.loadAnns(ref['ann_id'])
 
 
         # plt.figure()
@@ -70,8 +66,8 @@ cfg.DATASETS.TRAIN = ("refer_train",)
 cfg.DATASETS.TEST = ()
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
-cfg.SOLVER.IMS_PER_BATCH = 2
-cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
+# cfg.SOLVER.IMS_PER_BATCH = 2
+# cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 400    
 cfg.SOLVER.STEPS = []        # do not decay learning rate
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512
