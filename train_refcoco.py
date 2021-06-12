@@ -21,6 +21,7 @@ def get_refer_dicts():
     refer_train_list = []
 
     for ref_id in ref_ids:
+        new_ref = {}
         ref = refer.loadRefs(ref_id)[0]
         if len(ref['sentences']) < 2:
             continue
@@ -29,7 +30,7 @@ def get_refer_dicts():
         # print('The label is %s.'.format(refer.Cats[ref['category_id']]))
         # print('bbox: ')
         # print(refer.getRefBox(ref_id))
-        ref['annotations'] = [{
+        new_ref['annotations'] = [{
             'bbox': refer.getRefBox(ref_id),
             'bbox_mode': BoxMode.XYWH_ABS,
             'category_id': ref['category_id']
@@ -39,11 +40,11 @@ def get_refer_dicts():
         # plt.figure()
         # refer.showMask(ref)
         # plt.show()
-        ref['height'] = refer.loadImgs(ref['image_id'])[0]['height']
-        ref['width'] = refer.loadImgs(ref['image_id'])[0]['width']
+        new_ref['height'] = refer.loadImgs(ref['image_id'])[0]['height']
+        new_ref['width'] = refer.loadImgs(ref['image_id'])[0]['width']
 
-        ref['file_name'] = "data/images/mscoco/images/train2014/" + refer.loadImgs(ref['image_id'])[0]['file_name']
-        refer_train_list.append(ref)
+        new_ref['file_name'] = "data/images/mscoco/images/train2014/" + refer.loadImgs(ref['image_id'])[0]['file_name']
+        refer_train_list.append(new_ref)
     return refer_train_list
 
 def get_refer_classes():
