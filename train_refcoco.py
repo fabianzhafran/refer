@@ -48,7 +48,10 @@ def get_refer_dicts():
 
 def get_refer_classes():
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
-    return refer.Cats
+    list_classes = [None] # because the dict key start from 1
+    for key, value in refer.Cats.items():
+        list_classes.append(value)
+    return list_classes
 
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts())
