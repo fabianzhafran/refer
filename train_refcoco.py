@@ -73,7 +73,7 @@ cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.p
 # cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 400    
 cfg.SOLVER.STEPS = []        # do not decay learning rate
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 512
+cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
