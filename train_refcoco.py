@@ -35,9 +35,9 @@ def get_refer_dicts():
         # plt.figure()
         # refer.showMask(ref)
         # plt.show()
-        ref['height'] = refer.loadImgs(ref['image_id'])[0].height
-        ref['width'] = refer.loadImgs(ref['image_id'])[0].width
-        
+        ref['height'] = refer.loadImgs(ref['image_id'])[0]['height']
+        ref['width'] = refer.loadImgs(ref['image_id'])[0]['width']
+
         refer_train_list.append(ref)
     return refer_train_list
 
