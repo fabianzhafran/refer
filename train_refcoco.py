@@ -29,8 +29,12 @@ def get_refer_dicts():
         # print('The label is %s.'.format(refer.Cats[ref['category_id']]))
         # print('bbox: ')
         # print(refer.getRefBox(ref_id))
-        ref['bbox'] = refer.getRefBox(ref_id)
-        ref['bbox_mode'] = BoxMode.XYXY_ABS
+        ref['annotations'] = {
+            'bbox': refer.getRefBox(ref_id),
+            'bbox_mode': BoxMode.XYXY_ABS,
+            'category_id': ref['category_id']
+        }
+
 
         # plt.figure()
         # refer.showMask(ref)
