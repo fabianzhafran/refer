@@ -48,7 +48,7 @@ def get_refer_dicts():
 
 def get_refer_classes():
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
-    list_classes = [None] # because the dict key start from 1
+    list_classes = ['None'] # because the dict key start from 1
     for key, value in refer.Cats.items():
         list_classes.append(value)
     return list_classes
