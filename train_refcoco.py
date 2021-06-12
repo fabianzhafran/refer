@@ -31,6 +31,8 @@ def get_refer_dicts():
         # print('bbox: ')
         # print(refer.getRefBox(ref_id))
         new_ref['annotations'] = refer.loadAnns(ref['ann_id'])
+        for i in range(len(new_ref['annotations'])):
+            new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYWH_ABS
 
 
         # plt.figure()
@@ -40,6 +42,7 @@ def get_refer_dicts():
         new_ref['width'] = refer.loadImgs(ref['image_id'])[0]['width']
 
         new_ref['file_name'] = "data/images/mscoco/images/train2014/" + refer.loadImgs(ref['image_id'])[0]['file_name']
+        new_ref['image_id'] = ref['image_id']
         refer_train_list.append(new_ref)
     return refer_train_list
 
