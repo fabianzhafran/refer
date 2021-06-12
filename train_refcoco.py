@@ -56,7 +56,7 @@ def get_refer_classes():
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts())
 MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
-refer_metadata = MetadataCatalog.get("refer_train")
+# refer_metadata = MetadataCatalog.get("refer_train")
 
 from detectron2.engine import DefaultTrainer
 
@@ -69,8 +69,8 @@ cfg.DATASETS.TRAIN = ("refer_train",)
 cfg.DATASETS.TEST = ()
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
-# cfg.SOLVER.IMS_PER_BATCH = 2
-# cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
+cfg.SOLVER.IMS_PER_BATCH = 2
+cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 400    
 cfg.SOLVER.STEPS = []        # do not decay learning rate
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
