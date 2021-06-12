@@ -38,6 +38,7 @@ def get_refer_dicts():
         ref['height'] = refer.loadImgs(ref['image_id'])[0]['height']
         ref['width'] = refer.loadImgs(ref['image_id'])[0]['width']
 
+        ref['file_name'] = "data/images/mscoco/images/train2014/" + ref['file_name']
         refer_train_list.append(ref)
     return refer_train_list
 
