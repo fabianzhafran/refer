@@ -52,10 +52,10 @@ def get_refer_classes():
     
     lastIdx = 1
     for key, value in refer.Cats.items():
-        lastIdx = max(lastIdx, value)
+        lastIdx = max(lastIdx, int(key))
     list_classes = ['None' for i in range(lastIdx+1)]
     for key, value in refer.Cats.items():
-        list_classes[key] = value
+        list_classes[int(key)] = value
     return list_classes
 
 d = "train"
