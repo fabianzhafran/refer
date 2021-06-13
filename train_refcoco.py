@@ -49,9 +49,13 @@ def get_refer_dicts():
 
 def get_refer_classes():
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
-    list_classes = ['None'] # because the dict key start from 1
+    
+    lastIdx = 1
     for key, value in refer.Cats.items():
-        list_classes.append(value)
+        lastIdx = max(lastIdx, value)
+    list_classes = ['None' for i in range(lastIdx+1)]
+    for key, value in refer.Cats.items():
+        list_classes[key] = value
     return list_classes
 
 d = "train"
@@ -67,7 +71,7 @@ cfg = get_cfg()
 cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_R_101_C4_3x.yaml"))
 cfg.DATASETS.TRAIN = ("refer_train",)
 cfg.DATASETS.TEST = ()
-cfg.DATALOADER.NUM_WORKERS = 0
+cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
 cfg.SOLVER.IMS_PER_BATCH = 2
 cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
