@@ -74,7 +74,7 @@ cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
 cfg.SOLVER.MAX_ITER = 400    
 # cfg.SOLVER.STEPS = []        # do not decay learning rate
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
-cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1600
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 trainer = DefaultTrainer(cfg) 
