@@ -18,7 +18,7 @@ from detectron2.engine import DefaultTrainer
 
 def get_refer_dicts():
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
-    ref_ids = refer.getRefIds(split='test')
+    ref_ids = refer.getRefIds(split='train')
     refer_train_list = []
 
     for ref_id in ref_ids:
