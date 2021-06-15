@@ -73,10 +73,10 @@ cfg.DATASETS.TRAIN = ("refer_train",)
 cfg.DATASETS.TEST = ()
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
-cfg.SOLVER.IMS_PER_BATCH = 2
-cfg.SOLVER.BASE_LR = 0.00025  # pick a good LR
-cfg.SOLVER.MAX_ITER = 3000    
-# cfg.SOLVER.STEPS = []        # do not decay learning rate
+cfg.SOLVER.IMS_PER_BATCH = 15
+cfg.SOLVER.BASE_LR = 0.02 
+cfg.SOLVER.MAX_ITER = 90000    
+# cfg.SOLVER.STEPS = []        
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
 
