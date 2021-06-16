@@ -35,7 +35,7 @@ def get_refer_dicts():
         # print(refer.getRefBox(ref_id))
         new_ref['annotations'] = refer.loadAnns(ref['ann_id'])
         for i in range(len(new_ref['annotations'])):
-            new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYXY_ABS
+            new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYWH_ABS
 
 
         # plt.figure()
@@ -67,7 +67,7 @@ def get_refer_dicts():
             
         final_refer_train_list.append(final_ref)
         
-    print(final_refer_train_list[:5])
+#     print(final_refer_train_list[:5])
     print(len(final_refer_train_list))
     return final_refer_train_list
 
@@ -82,30 +82,29 @@ def get_refer_classes():
         list_classes[int(key)] = value
     return list_classes
 
-get_refer_dicts()
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts())
 MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
-# refer_metadata = MetadataCatalog.get("refer_train")
+refer_metadata = MetadataCatalog.get("refer_train")
 
-# NUM_CLASSES = len(get_refer_classes())
-# OUTPUT_DIR = "fine_tuned_model"
+NUM_CLASSES = len(get_refer_classes())
+OUTPUT_DIR = "fine_tuned_model"
 
-# cfg = get_cfg()
-# cfg.merge_from_file("/projectnb/statnlp/gik/py-bottom-up-attention/configs/VG-Detection/faster_rcnn_R_101_C4_attr_caffemaxpool.yaml")
-# # cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_R_101_C4_3x.yaml"))
-# cfg.DATASETS.TRAIN = ("refer_train",)
-# cfg.DATASETS.TEST = ()
-# cfg.DATALOADER.NUM_WORKERS = 2
-# cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
-# cfg.SOLVER.IMS_PER_BATCH = 2
-# cfg.SOLVER.BASE_LR = 0.00025 
-# cfg.SOLVER.MAX_ITER = 5000    
-# # cfg.SOLVER.STEPS = []        
-# cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
-# cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
+cfg = get_cfg()
+cfg.merge_from_file("/projectnb/statnlp/gik/py-bottom-up-attention/configs/VG-Detection/faster_rcnn_R_101_C4_attr_caffemaxpool.yaml")
+# cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_R_101_C4_3x.yaml"))
+cfg.DATASETS.TRAIN = ("refer_train",)
+cfg.DATASETS.TEST = ()
+cfg.DATALOADER.NUM_WORKERS = 2
+cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
+cfg.SOLVER.IMS_PER_BATCH = 2
+cfg.SOLVER.BASE_LR = 0.00025 
+cfg.SOLVER.MAX_ITER = 5000    
+# cfg.SOLVER.STEPS = []        
+cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
+cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
 
-# os.makedirs(OUTPUT_DIR, exist_ok=True)
-# trainer = DefaultTrainer(cfg) 
-# trainer.resume_or_load(resume=False)
-# trainer.train()
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+trainer = DefaultTrainer(cfg) 
+trainer.resume_or_load(resume=False)
+trainer.train()
