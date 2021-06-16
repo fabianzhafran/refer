@@ -51,7 +51,7 @@ def get_refer_dicts():
         if ref['image_id'] in list_data_image:
             list_data_image[ref['image_id']].append(new_ref)
         else:
-            list_data_image[ref['image_id']] = new_ref
+            list_data_image[ref['image_id']] = [new_ref]
         
         
     final_refer_train_list = []
