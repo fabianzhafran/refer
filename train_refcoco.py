@@ -64,6 +64,8 @@ def get_refer_dicts():
         final_ref['annotations'] = []
         for obj_ref in list_data_image[image_id]:
             final_ref['annotations'] += obj_ref['annotations']
+            
+        final_refer_train_list.append(final_ref)
         
     print(final_refer_train_list[:5])
     print(len(final_refer_train_list))
