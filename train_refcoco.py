@@ -33,7 +33,7 @@ def get_refer_dicts():
         # print(refer.getRefBox(ref_id))
         new_ref['annotations'] = refer.loadAnns(ref['ann_id'])
         for i in range(len(new_ref['annotations'])):
-            new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYWH_ABS
+            new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYXY_ABS
 
 
         # plt.figure()
@@ -75,7 +75,7 @@ cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
 cfg.SOLVER.IMS_PER_BATCH = 2
 cfg.SOLVER.BASE_LR = 0.00025 
-cfg.SOLVER.MAX_ITER = 90000    
+cfg.SOLVER.MAX_ITER = 5000    
 # cfg.SOLVER.STEPS = []        
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
