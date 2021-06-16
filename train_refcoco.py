@@ -77,6 +77,7 @@ def get_refer_classes():
         list_classes[int(key)] = value
     return list_classes
 
+get_refer_dicts()
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts())
 MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
