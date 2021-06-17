@@ -84,11 +84,23 @@ def get_refer_classes():
 
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
-MetadataCatalog.get("vg").set(thing_classes=get_refer_classes())
-refer_metadata = MetadataCatalog.get("vg")
+MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
+refer_metadata = MetadataCatalog.get("refer_" + d)
 
 d = "val"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
+MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
+
+
+# for debug (show some images with bbox)
+
+refer_dataset = DatasetCatalog.get("refer_train")
+for i in range(5):
+    sample = refer_dataset[i]
+    img = cv2.imread(sample["file_name"])
+    visualizer = Visualizer(img[:, :, ::-1], metadata=MetadataCatalog.get("refer_train"), scale=0.5)
+    vis = visualizer.draw_dataset_dict(sample)
+    showarray(vis.get_image()[:, :, ::-1], "output/" + "sampleObj_%i.jpg"%i)
 
 
 NUM_CLASSES = len(get_refer_classes())
@@ -98,7 +110,7 @@ cfg = get_cfg()
 cfg.merge_from_file("/projectnb/statnlp/gik/py-bottom-up-attention/configs/VG-Detection/faster_rcnn_R_101_C4_attr_caffemaxpool.yaml")
 # cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_R_101_C4_3x.yaml"))
 cfg.DATASETS.TRAIN = ("refer_train",)
-cfg.DATASETS.TEST = ()
+cfg.DATASETS.TEST = ("refer_test",)
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
 cfg.SOLVER.IMS_PER_BATCH = 2
