@@ -84,13 +84,12 @@ def get_refer_classes():
 
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
-MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
-refer_metadata = MetadataCatalog.get("refer_train")
+MetadataCatalog.get("vg").set(thing_classes=get_refer_classes())
+refer_metadata = MetadataCatalog.get("vg")
 
 d = "val"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
-MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
-refer_metadata = MetadataCatalog.get("refer_train")
+
 
 NUM_CLASSES = len(get_refer_classes())
 OUTPUT_DIR = "fine_tuned_model"
