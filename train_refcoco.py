@@ -18,6 +18,7 @@ from detectron2.engine import DefaultTrainer
 
 from IPython.display import clear_output, Image, display
 import PIL.Image
+import io
 
 def get_refer_dicts(part_split):
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
