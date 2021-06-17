@@ -15,6 +15,7 @@ from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 from detectron2.engine import DefaultTrainer
+from detectron2.engine import DefaultPredictor
 
 from IPython.display import clear_output, Image, display
 import PIL.Image
@@ -134,8 +135,17 @@ trainer = DefaultTrainer(cfg)
 trainer.resume_or_load(resume=False)
 trainer.train()
 
-# from detectron2.evaluation import COCOEvaluator, inference_on_dataset
-# from detectron2.data import build_detection_test_loader
-# evaluator = COCOEvaluator("refer_val", ("bbox", "segm"), False, output_dir="./output/")
-# val_loader = build_detection_test_loader(cfg, "refer_val")
-# print(inference_on_dataset(trainer.model, val_loader, evaluator))
+# test on train
+cfg.MODEL.WEIGHTS = "/projectnb/statnlp/gik/refer/output/model_final.pth"
+cfg.MODEL.ROI_HEADS.NMS_THRESH_TEST = 0.6
+cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.2
+cfg.MODEL.RPN.POST_NMS_TOPK_TEST = 1000
+predictor = DefaultPredictor(cfg)
+for i in range(5):
+    sample = refer_dataset[i]
+    im = cv2.imread(sample["file_name"])
+    outputs_obj_only = predictor(im)
+    print(outputs_obj_only)
+    v = Visualizer(im[:, :, ::-1], MetadataCatalog.get("vg"), scale=1.2)
+    out = v.draw_instance_predictions(outputs_obj_only["instances"].to("cpu"))
+    showarray(out.get_image()[:, :, ::-1], "output/"+"samplePredictedObj_%i.jpg"%i)
