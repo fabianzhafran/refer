@@ -120,14 +120,14 @@ cfg = get_cfg()
 cfg.merge_from_file("/projectnb/statnlp/gik/py-bottom-up-attention/configs/VG-Detection/faster_rcnn_R_101_C4_attr_caffemaxpool.yaml")
 # cfg.merge_from_file(model_zoo.get_config_file("COCO-Detection/faster_rcnn_R_101_C4_3x.yaml"))
 cfg.DATASETS.TRAIN = ("refer_train",)
-cfg.DATASETS.TEST = ("refer_test",)
+cfg.DATASETS.TEST = ("refer_val",)
 cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
 cfg.SOLVER.IMS_PER_BATCH = 2
 cfg.SOLVER.BASE_LR = 0.00025 
 cfg.SOLVER.MAX_ITER = 30000    
 # cfg.SOLVER.STEPS = []        
-cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
+cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 16
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -146,6 +146,6 @@ for i in range(5):
     im = cv2.imread(sample["file_name"])
     outputs_obj_only = predictor(im)
     print(outputs_obj_only)
-    v = Visualizer(im[:, :, ::-1], MetadataCatalog.get("vg"), scale=1.2)
+    v = Visualizer(im[:, :, ::-1], MetadataCatalog.get("refer_val"), scale=1.2)
     out = v.draw_instance_predictions(outputs_obj_only["instances"].to("cpu"))
     showarray(out.get_image()[:, :, ::-1], "output/"+"samplePredictedObj_%i.jpg"%i)
