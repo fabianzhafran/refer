@@ -16,6 +16,9 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 from detectron2.engine import DefaultTrainer
 
+from IPython.display import clear_output, Image, display
+import PIL.Image
+
 def get_refer_dicts(part_split):
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
     ref_ids = refer.getRefIds(split=part_split)
@@ -81,6 +84,11 @@ def get_refer_classes():
     for key, value in refer.Cats.items():
         list_classes[int(key)] = value
     return list_classes
+
+def showarray(a, fn, fmt='jpeg'):
+    a = np.uint8(np.clip(a, 0, 255))
+    f = io.BytesIO()
+    PIL.Image.fromarray(a).save(fn, fmt)
 
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
