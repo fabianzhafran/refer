@@ -16,9 +16,9 @@ from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog, DatasetCatalog
 from detectron2.engine import DefaultTrainer
 
-def get_refer_dicts():
+def get_refer_dicts(part_split):
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
-    ref_ids = refer.getRefIds(split='train')
+    ref_ids = refer.getRefIds(split=part_split)
     refer_train_list = []
     
     list_data_image = {}
@@ -84,7 +84,12 @@ def get_refer_classes():
 
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts())
-MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes())
+MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes(d))
+refer_metadata = MetadataCatalog.get("refer_train")
+
+d = "val"
+DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts())
+MetadataCatalog.get("refer_" + d).set(thing_classes=get_refer_classes(d))
 refer_metadata = MetadataCatalog.get("refer_train")
 
 NUM_CLASSES = len(get_refer_classes())
@@ -99,7 +104,7 @@ cfg.DATALOADER.NUM_WORKERS = 2
 cfg.MODEL.WEIGHTS = "https://nlp.cs.unc.edu/models/faster_rcnn_from_caffe_attr.pkl"
 cfg.SOLVER.IMS_PER_BATCH = 2
 cfg.SOLVER.BASE_LR = 0.00025 
-cfg.SOLVER.MAX_ITER = 5000    
+cfg.SOLVER.MAX_ITER = 30000    
 # cfg.SOLVER.STEPS = []        
 cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 8
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = NUM_CLASSES
@@ -108,3 +113,9 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 trainer = DefaultTrainer(cfg) 
 trainer.resume_or_load(resume=False)
 trainer.train()
+
+from detectron2.evaluation import COCOEvaluator, inference_on_dataset
+from detectron2.data import build_detection_test_loader
+evaluator = COCOEvaluator("refer_val", ("bbox", "segm"), False, output_dir="./output/")
+val_loader = build_detection_test_loader(cfg, "refer_val")
+print(inference_on_dataset(trainer.model, val_loader, evaluator))
