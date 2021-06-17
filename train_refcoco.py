@@ -113,8 +113,8 @@ trainer = DefaultTrainer(cfg)
 trainer.resume_or_load(resume=False)
 trainer.train()
 
-from detectron2.evaluation import COCOEvaluator, inference_on_dataset
-from detectron2.data import build_detection_test_loader
-evaluator = COCOEvaluator("refer_val", ("bbox", "segm"), False, output_dir="./output/")
-val_loader = build_detection_test_loader(cfg, "refer_val")
-print(inference_on_dataset(trainer.model, val_loader, evaluator))
+# from detectron2.evaluation import COCOEvaluator, inference_on_dataset
+# from detectron2.data import build_detection_test_loader
+# evaluator = COCOEvaluator("refer_val", ("bbox", "segm"), False, output_dir="./output/")
+# val_loader = build_detection_test_loader(cfg, "refer_val")
+# print(inference_on_dataset(trainer.model, val_loader, evaluator))
