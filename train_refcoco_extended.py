@@ -24,7 +24,6 @@ import io
 def get_refer_dicts(part_split):
     refer = REFER(dataset='refcoco', data_root='./data', splitBy='google')
     ref_ids = refer.getRefIds(split=part_split)
-    refer_train_list = []
     
     list_data_image = {}
 
@@ -39,8 +38,10 @@ def get_refer_dicts(part_split):
         # print('bbox: ')
         # print(refer.getRefBox(ref_id))
         new_ref['annotations'] = refer.loadAnns(ref['ann_id'])
+        new_ref["category_id"]  += 1600
         for i in range(len(new_ref['annotations'])):
             new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYWH_ABS
+            new_ref['annotations'][i]["category_id"] += 1600
 
 
         # plt.figure()
@@ -51,7 +52,6 @@ def get_refer_dicts(part_split):
 
         new_ref['file_name'] = "data/images/mscoco/images/train2014/" + refer.loadImgs(ref['image_id'])[0]['file_name']
         new_ref['image_id'] = ref['image_id']
-        refer_train_list.append(new_ref)
         
         if ref['image_id'] in list_data_image:
             list_data_image[ref['image_id']].append(new_ref)
@@ -101,12 +101,12 @@ with open('extended_objects_vocab_vg_recoco.txt') as f:
 
 d = "train"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
-MetadataCatalog.get("refer_" + d).set(thing_classes=recoco_vg_classes())
+MetadataCatalog.get("refer_" + d).set(thing_classes=recoco_vg_classes)
 refer_metadata = MetadataCatalog.get("refer_" + d)
 
 d = "val"
 DatasetCatalog.register("refer_" + d, lambda d=d: get_refer_dicts(d))
-MetadataCatalog.get("refer_" + d).set(thing_classes=recoco_vg_classes())
+MetadataCatalog.get("refer_" + d).set(thing_classes=recoco_vg_classes)
 
 
 # for debug (show some images with bbox)
