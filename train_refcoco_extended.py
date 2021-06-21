@@ -38,7 +38,7 @@ def get_refer_dicts(part_split):
         # print('bbox: ')
         # print(refer.getRefBox(ref_id))
         new_ref['annotations'] = refer.loadAnns(ref['ann_id'])
-        new_ref["category_id"]  += 1600
+        
         for i in range(len(new_ref['annotations'])):
             new_ref['annotations'][i]["bbox_mode"] = BoxMode.XYWH_ABS
             new_ref['annotations'][i]["category_id"] += 1600
