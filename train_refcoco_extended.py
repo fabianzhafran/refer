@@ -95,7 +95,7 @@ def showarray(a, fn, fmt='jpeg'):
 
 
 recoco_vg_classes = []
-with open('extended_objects_vocab_vg_recoco.txt.txt') as f:
+with open('extended_objects_vocab_vg_recoco.txt') as f:
     for object in f.readlines():
         recoco_vg_classes.append(object.split(',')[0].lower().strip())
 
