@@ -22,8 +22,10 @@ if __name__ == "__main__":
     with open(os.path.join(data_path_vg, 'objects_vocab.txt')) as f:
         for object in f.readlines():
             final_vocab_file.write(object)
-
-    for object in refcoco_classes:
-        final_vocab_file.write(object+"\n")
+    final_vocab_file.write("\n")
+    for i in range(len(refcoco_classes)):
+        final_vocab_file.write(object)
+        if (i != len(refcoco_classes)-1):
+            final_vocab_file.write("\n")
     
     final_vocab_file.close()
