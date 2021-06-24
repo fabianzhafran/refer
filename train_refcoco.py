@@ -82,7 +82,7 @@ def get_refer_classes():
     lastIdx = 1
     for key, value in refer.Cats.items():
         lastIdx = max(lastIdx, int(key))
-    list_classes = ['None' for i in range(lastIdx+1)]
+    list_classes = [f'None-{i}' for i in range(lastIdx+1)]
     for key, value in refer.Cats.items():
         list_classes[int(key)] = value
     return list_classes
